@@ -1,6 +1,9 @@
 package model;
 
 import repositorio.*;
+
+import java.util.ArrayList;
+
 import exceptions.*;
 
 public class Sistema {
@@ -8,7 +11,7 @@ public class Sistema {
     private RepositorioGerente gerentes;
     private RepositorioVendedor vendedores;
     private RepositorioItem itens;
-    // private RepositorioVenda vendas;
+    private RepositorioVenda vendas;
     private int id;
 
     public Sistema() {
@@ -16,7 +19,7 @@ public class Sistema {
         this.gerentes = new RepositorioGerente();
         this.vendedores = new RepositorioVendedor();
         this.itens = new RepositorioItem();
-        // this.vendas = new RepositorioVenda();
+        this.vendas = new RepositorioVenda();
         this.id = 1;
 
     }
@@ -51,27 +54,18 @@ public class Sistema {
 
     }
 
-    public void criarItem(String descricao, double preco, double estoque, String medida)
-            throws CampoVazioException, NaoENumeroException {
+    public void criarItem(String descricao, double preco, double estoque, String medida) {
 
-        try {
+        Item item = new Item(id, descricao, preco, estoque, medida);
+        itens.inserirItem(item);
+        id++;
 
-            if ((preco >= 0 && estoque >= 0) && (descricao.equals("") || medida.equals(""))) {
+    }
 
-                throw new CampoVazioException("Todos os campos devem ser preenchidos");
+    public void criarVenda(Vendedor vendedor, ArrayList<Grupo> grupos, double aVista, double credito, double debito) {
 
-            } else {
-
-                Item item = new Item(id, descricao, preco, estoque, medida);
-                itens.inserirItem(item);
-
-            }
-
-        } catch (Exception e) {
-
-            throw new NaoENumeroException("Preço e estoque devem ser números");
-
-        }
+        Venda venda = new Venda(vendedor, grupos, aVista, credito, debito);
+        vendas.adicionarVenda(venda);
 
     }
 

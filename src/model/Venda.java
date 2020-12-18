@@ -9,7 +9,6 @@ public class Venda {
     private double aVista;
     private double credito;
     private double debito;
-    private double total;
 
     public Venda(Vendedor vendedor, ArrayList<Grupo> grupos, double aVista, double credito, double debito) {
         this.vendedor = vendedor;
@@ -17,7 +16,6 @@ public class Venda {
         this.aVista = aVista;
         this.credito = credito;
         this.debito = debito;
-        this.total = credito + debito + aVista;
     }
 
     public Vendedor getVendedor() {
@@ -61,7 +59,35 @@ public class Venda {
     }
 
     public double getTotal() {
+
+        double total = 0;
+
+        for (Grupo grupo : grupos) {
+
+            total += grupo.getTotal();
+
+        }
+
         return total;
+    }
+
+    public ArrayList<String> getGruposArrayListStrings() {
+
+        ArrayList<String> gruposString = new ArrayList<String>();
+
+        for (Grupo grupo : grupos) {
+
+            String texto = "";
+
+            texto += grupo.getQuantidade() + " | " + grupo.getItem().getDescricao() + " | "
+                    + Double.toString(grupo.getItem().getPreco()) + " | " + Double.toString(grupo.getTotal());
+
+            gruposString.add(texto);
+
+        }
+
+        return gruposString;
+
     }
 
 }
