@@ -1,5 +1,6 @@
 package model;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -60,8 +61,9 @@ public class Main {
                     System.out.println(mensagem);
                 }
 
-            } catch (Exception e) {
+            } catch (InputMismatchException e) {
                 System.out.println(mensagem);
+                input.nextLine();
             }
 
         } while (numero <= 0);
@@ -99,7 +101,7 @@ public class Main {
 
             if (opcao.equals("1")) {
 
-                // criarItem();
+                criarItem();
 
             } else if (opcao.equals("2")) {
 
@@ -200,6 +202,26 @@ public class Main {
     ////////////////////////////////////////// GERENCIAR ITENS
     ////////////////////////////////////////// //////////////////////////////////////////
 
+    private static void criarItem() {
+        printLinha("CRIAR ITEM");
+
+        System.out.print("DIGITE A DESCRIÇÃO DO ITEM: ");
+        String descricao = inputString("DIGITE UMA DESCRIÇÃO VALIDA");
+
+        System.out.print("DIGITE O PREÇO DO ITEM: ");
+        double preco = inputDouble("DIGITE UM PREÇO VALIDO");
+
+        System.out.print("DIGITE O ESTOQUE DO ITEM: ");
+        double estoque = inputDouble("DIGITE UM VALOR VALIDO");
+
+        System.out.print("DIGITE A MEDIDA DO ITEM: ");
+        String medida = inputString("DIGITE UMA MEDIDA VALIDA");
+
+        sistema.criarItem(descricao, preco, estoque, medida);
+
+        printLinha("ITEM CADASTRADO COM SUCESSO");
+    }
+
     /////////////////////////////////////// GERENCIAR VENDEDORES
     /////////////////////////////////////// ///////////////////////////////////////
 
@@ -255,7 +277,6 @@ public class Main {
 
         System.out.print("DIGITE A SENHA DO GERENTE: ");
         String senha = inputString("DIGITE UMA SENHA VALIDA");
-
 
         if (sistema.excluirGerente(nome, senha) == true) {
             printLinha("GERENTE EXCLUIDO");
