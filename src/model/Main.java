@@ -86,7 +86,7 @@ public class Main {
             System.out.println("2 - MODIFICAR ITEM");
             System.out.println("3 - LISTAR ITENS");
             System.out.println("4 - EXCLUIR ITEM");
-            System.out.println("0 - SAIR");
+            System.out.println("0 - VOLTAR");
             System.out.println("");
             System.out.print("DIGITE O NUMERO REFERENTE A SUA OPCAO: ");
             opcao = input.nextLine();
@@ -198,10 +198,6 @@ public class Main {
 
     ///////////////////////////////////////   GERENCIAR VENDEDORES   ///////////////////////////////////////
 
-
-
-    ////////////////////////////////////////   GERENCIAR GERENTES   ////////////////////////////////////////
-
     public static void criarVendedor(){
 
         printLinha("CRIAR VENDEDOR");
@@ -227,6 +223,10 @@ public class Main {
         }
 
     }
+
+    ////////////////////////////////////////   GERENCIAR GERENTES   ////////////////////////////////////////
+
+    
 
     ///////////////////////////////////////////////   MAIN   ///////////////////////////////////////////////
 
