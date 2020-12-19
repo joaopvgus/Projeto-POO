@@ -8,6 +8,8 @@ public interface IRepositorioVendedor {
     
     void adicionarVendedor(Vendedor vendedor);
 
+    boolean excluirVendedor(String nome);
+
     ArrayList<Vendedor> recuperarTodosOsVendedores();
 
 }

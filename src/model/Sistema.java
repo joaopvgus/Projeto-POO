@@ -4,8 +4,6 @@ import repositorio.*;
 
 import java.util.ArrayList;
 
-import exceptions.*;
-
 public class Sistema {
 
     private RepositorioGerente gerentes;
@@ -24,33 +22,25 @@ public class Sistema {
 
     }
 
-    public void criarGerente(String nome, String senha) throws CampoVazioException {
+    public void criarGerente(String nome, String senha){
 
-        if (nome.equals("") || senha.equals("")) {
-
-            throw new CampoVazioException("Todos os campos devem ser preenchidos");
-
-        } else {
-
-            Gerente gerente = new Gerente(nome, senha);
-            gerentes.inserirGerente(gerente);
-
-        }
+        Gerente gerente = new Gerente(nome, senha);
+        gerentes.inserirGerente(gerente);
 
     }
 
-    public void criarVendedor(String nome) throws CampoVazioException {
+    public void criarVendedor(String nome){
 
-        if (nome.equals("")) {
+        Vendedor vendedor = new Vendedor(nome);
+        vendedores.adicionarVendedor(vendedor);
 
-            throw new CampoVazioException("Insira um nome");
+    }
 
-        } else {
+    public boolean excluirVendedor(String nome){
 
-            Vendedor vendedor = new Vendedor(nome);
-            vendedores.adicionarVendedor(vendedor);
+        boolean status = vendedores.excluirVendedor(nome);
 
-        }
+        return status;
 
     }
 

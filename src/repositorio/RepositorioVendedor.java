@@ -16,6 +16,23 @@ public class RepositorioVendedor implements IRepositorioVendedor {
     }
 
     @Override
+    public boolean excluirVendedor(String nome) {
+        
+        for (Vendedor vendedor : vendedores) {
+            
+            if (vendedor.getNome().equals(nome)){
+
+                vendedores.remove(vendedor);
+                return true;
+
+            }
+
+        }
+
+        return false;
+    }
+
+    @Override
     public ArrayList<Vendedor> recuperarTodosOsVendedores() {
         
         return vendedores;
