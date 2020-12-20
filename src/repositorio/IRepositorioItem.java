@@ -13,4 +13,6 @@ public interface IRepositorioItem {
     Item recuperarItem(String nome);
 
     void atualiazarItem(int id, String descricao, double preco, double estoque, String medida);
+
+    boolean excluirItem(String nome);
 }

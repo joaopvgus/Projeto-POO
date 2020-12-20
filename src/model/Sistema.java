@@ -73,6 +73,14 @@ public class Sistema {
         itens.atualiazarItem(id2, descricao, preco, estoque, medida);
     }
 
+    public boolean excluirItem(String nome) {
+
+        boolean status = itens.excluirItem(nome);
+
+        return status;
+
+    }
+
     public void criarVenda(Vendedor vendedor, ArrayList<Grupo> grupos, double aVista, double credito, double debito) {
 
         Venda venda = new Venda(vendedor, grupos, aVista, credito, debito);

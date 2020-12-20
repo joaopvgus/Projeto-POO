@@ -43,4 +43,21 @@ public class RepositorioItem implements IRepositorioItem {
             }
         }
     }
+
+    @Override
+    public boolean excluirItem(String nome) {
+        
+        for (Item item : itens) {
+            
+            if (item.getDescricao().equals(nome)){
+
+                itens.remove(item);
+                return true;
+
+            }
+
+        }
+
+        return false;
+    }
 }

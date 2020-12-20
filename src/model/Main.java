@@ -113,7 +113,7 @@ public class Main {
 
             } else if (opcao.equals("4")) {
 
-                // excluirItem();
+                excluirItem();
 
             } else if (!opcao.equals("0")) {
 
@@ -276,6 +276,19 @@ public class Main {
         }
     }
 
+    public static void excluirItem() {
+
+        printLinha("EXCLUIR ITEM");
+        System.out.print("DIGITE A DESCRIÇÃO DO ITEM: ");
+        String nome = inputString("DIGITE UMA DESCRIÇÃO VALIDA");
+
+        if (sistema.excluirItem(nome) == true) {
+            printLinha("ITEM EXCLUIDO");
+        } else {
+            printLinha("ITEM NAO CADASTRADO");
+        }
+
+    }
     /////////////////////////////////////// GERENCIAR VENDEDORES
     /////////////////////////////////////// ///////////////////////////////////////
 
