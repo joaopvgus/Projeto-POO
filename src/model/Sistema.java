@@ -22,21 +22,29 @@ public class Sistema {
 
     }
 
-    public void criarGerente(String nome, String senha){
+    public void criarGerente(String nome, String senha) {
 
         Gerente gerente = new Gerente(nome, senha);
         gerentes.inserirGerente(gerente);
 
     }
 
-    public void criarVendedor(String nome){
+    public boolean excluirGerente(String nome, String senha) {
+
+        boolean status = gerentes.excluirGerente(nome, senha);
+
+        return status;
+
+    }
+
+    public void criarVendedor(String nome) {
 
         Vendedor vendedor = new Vendedor(nome);
         vendedores.adicionarVendedor(vendedor);
 
     }
 
-    public boolean excluirVendedor(String nome){
+    public boolean excluirVendedor(String nome) {
 
         boolean status = vendedores.excluirVendedor(nome);
 

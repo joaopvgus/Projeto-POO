@@ -6,7 +6,8 @@ public class Main {
 
     private static Sistema sistema = new Sistema();
 
-    ////////////////////////////////   METODOS BASICOS DE ENTRADA E SAIDA   ////////////////////////////////
+    //////////////////////////////// METODOS BASICOS DE ENTRADA E SAIDA
+    //////////////////////////////// ////////////////////////////////
 
     public static void printLinha(String titulo) {
         System.out.println("");
@@ -27,16 +28,16 @@ public class Main {
 
     }
 
-    public static String inputString(String mensagem){
+    public static String inputString(String mensagem) {
 
         Scanner input = new Scanner(System.in);
         String texto = "";
 
-        do{
+        do {
 
             texto = input.nextLine();
 
-            if (texto.equals("")){
+            if (texto.equals("")) {
                 System.out.println(mensagem);
             }
 
@@ -46,16 +47,20 @@ public class Main {
 
     }
 
-    public static double inputDouble(String mensagem){
+    public static double inputDouble(String mensagem) {
 
         Scanner input = new Scanner(System.in);
-        double numero;
+        double numero = 0;
 
-        do{
+        do {
+            try {
+                numero = input.nextDouble();
 
-            numero = input.nextDouble();
+                if (numero <= 0) {
+                    System.out.println(mensagem);
+                }
 
-            if (numero <= 0){
+            } catch (Exception e) {
                 System.out.println(mensagem);
             }
 
@@ -65,7 +70,8 @@ public class Main {
 
     }
 
-    ////////////////////////   METODOS DIRETAMENTE RELACIONADOS AO MENU PRINCIPAL   ////////////////////////
+    //////////////////////// METODOS DIRETAMENTE RELACIONADOS AO MENU PRINCIPAL
+    //////////////////////// ////////////////////////
 
     public static void efetuarVenda() {
 
@@ -171,11 +177,11 @@ public class Main {
 
             if (opcao.equals("1")) {
 
-                // criarGerente();
+                criarGerente();
 
             } else if (opcao.equals("2")) {
 
-                // excluirGerente();
+                excluirGerente();
 
             } else if (!opcao.equals("0")) {
 
@@ -188,47 +194,79 @@ public class Main {
 
     }
 
-    ///////////////////////////////////////////   EFETUAR VENDA   ///////////////////////////////////////////
+    /////////////////////////////////////////// EFETUAR VENDA
+    /////////////////////////////////////////// ///////////////////////////////////////////
 
-    
-    
-    //////////////////////////////////////////   GERENCIAR ITENS   //////////////////////////////////////////
+    ////////////////////////////////////////// GERENCIAR ITENS
+    ////////////////////////////////////////// //////////////////////////////////////////
 
+    /////////////////////////////////////// GERENCIAR VENDEDORES
+    /////////////////////////////////////// ///////////////////////////////////////
 
-
-    ///////////////////////////////////////   GERENCIAR VENDEDORES   ///////////////////////////////////////
-
-    public static void criarVendedor(){
+    public static void criarVendedor() {
 
         printLinha("CRIAR VENDEDOR");
         System.out.print("DIGITE O NOME DO VENDEDOR: ");
         String nome = inputString("DIGITE UM NOME VALIDO");
-        
+
         sistema.criarVendedor(nome);
 
         printLinha("VENDEDOR CADASTRADO COM SUCESSO");
 
     }
 
-    public static void excluirVendedor(){
+    public static void excluirVendedor() {
 
         printLinha("EXCLUIR VENDEDOR");
         System.out.print("DIGITE O NOME DO VENDEDOR: ");
         String nome = inputString("DIGITE UM NOME VALIDO");
 
-        if (sistema.excluirVendedor(nome) == true){
+        if (sistema.excluirVendedor(nome) == true) {
             printLinha("VENDEDOR EXCLUIDO");
-        } else{
+        } else {
             printLinha("VENDEDOR NAO CADASTRADO");
         }
 
     }
 
-    ////////////////////////////////////////   GERENCIAR GERENTES   ////////////////////////////////////////
+    //////////////////////////////////////// GERENCIAR GERENTES
+    //////////////////////////////////////// ////////////////////////////////////////
 
-    
+    public static void criarGerente() {
 
-    ///////////////////////////////////////////////   MAIN   ///////////////////////////////////////////////
+        printLinha("CRIAR GERENTE");
+        System.out.print("DIGITE O NOME DO GERENTE: ");
+        String nome = inputString("DIGITE UM NOME VALIDO");
+
+        System.out.print("DIGITE A SENHA DO GERENTE: ");
+        String senha = inputString("DIGITE UMA SENHA VALIDA");
+
+        sistema.criarGerente(nome, senha);
+
+        printLinha("GERENTE CADASTRADO COM SUCESSO");
+
+    }
+
+    public static void excluirGerente() {
+
+        printLinha("EXCLUIR GERENTE");
+        System.out.print("DIGITE O NOME DO GERENTE: ");
+        String nome = inputString("DIGITE UM NOME VALIDO");
+
+        System.out.print("DIGITE A SENHA DO GERENTE: ");
+        String senha = inputString("DIGITE UMA SENHA VALIDA");
+
+
+        if (sistema.excluirGerente(nome, senha) == true) {
+            printLinha("GERENTE EXCLUIDO");
+        } else {
+            printLinha("GERENTE NAO CADASTRADO");
+        }
+
+    }
+
+    /////////////////////////////////////////////// MAIN
+    /////////////////////////////////////////////// ///////////////////////////////////////////////
 
     public static void main(String[] args) {
 
