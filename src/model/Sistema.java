@@ -60,6 +60,27 @@ public class Sistema {
 
     }
 
+    public ArrayList<Item> recuperarTodosOsItens() {
+        return itens.recuperarTodosOsItens();
+    }
+
+    public Item buscarItem(String nome) {
+        Item item = itens.recuperarItem(nome);
+        return item;
+    }
+
+    public void modificarItem(int id2, String descricao, double preco, double estoque, String medida) {
+        itens.atualiazarItem(id2, descricao, preco, estoque, medida);
+    }
+
+    public boolean excluirItem(String nome) {
+
+        boolean status = itens.excluirItem(nome);
+
+        return status;
+
+    }
+
     public void criarVenda(Vendedor vendedor, ArrayList<Grupo> grupos, double aVista, double credito, double debito) {
 
         Venda venda = new Venda(vendedor, grupos, aVista, credito, debito);

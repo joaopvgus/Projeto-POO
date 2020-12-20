@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -60,8 +62,9 @@ public class Main {
                     System.out.println(mensagem);
                 }
 
-            } catch (Exception e) {
+            } catch (InputMismatchException e) {
                 System.out.println(mensagem);
+                input.nextLine();
             }
 
         } while (numero <= 0);
@@ -99,19 +102,18 @@ public class Main {
 
             if (opcao.equals("1")) {
 
-                // criarItem();
+                criarItem();
 
             } else if (opcao.equals("2")) {
-
-                // modificarItem();
+                modificarItem();
 
             } else if (opcao.equals("3")) {
 
-                // listarItens();
+                listarItens();
 
             } else if (opcao.equals("4")) {
 
-                // excluirItem();
+                excluirItem();
 
             } else if (!opcao.equals("0")) {
 
@@ -200,6 +202,93 @@ public class Main {
     ////////////////////////////////////////// GERENCIAR ITENS
     ////////////////////////////////////////// //////////////////////////////////////////
 
+    private static void criarItem() {
+        printLinha("CRIAR ITEM");
+
+        System.out.print("DIGITE A DESCRIÇÃO DO ITEM: ");
+        String descricao = inputString("DIGITE UMA DESCRIÇÃO VALIDA");
+
+        System.out.print("DIGITE O PREÇO DO ITEM: ");
+        double preco = inputDouble("DIGITE UM PREÇO VALIDO");
+
+        System.out.print("DIGITE O ESTOQUE DO ITEM: ");
+        double estoque = inputDouble("DIGITE UM VALOR VALIDO");
+
+        System.out.print("DIGITE A MEDIDA DO ITEM: ");
+        String medida = inputString("DIGITE UMA MEDIDA VALIDA");
+
+        sistema.criarItem(descricao, preco, estoque, medida);
+
+        printLinha("ITEM CADASTRADO COM SUCESSO");
+    }
+
+    public static Item buscarItem() {
+
+        System.out.print("DIGITE O NOME DO ITEM QUE DESEJA MODIFICAR: ");
+        String nome = inputString("DIGITE UM NOME VALIDO");
+
+        Item item = sistema.buscarItem(nome);
+
+        return item;
+    }
+
+    public static void modificarItem() {
+        printLinha("MODIFICAR ITEM");
+
+        Item item = buscarItem();
+        if (item == null) {
+            System.out.print("ITEM NÃO ENCONTRADO");
+        } else {
+
+            System.out.print("DIGITE A DESCRIÇÃO DO ITEM: (" + item.getDescricao() + "): ");
+            String descricao = inputString("DIGITE UMA DESCRIÇÃO VALIDA");
+
+            System.out.print("DIGITE O PREÇO DO ITEM: (" + item.getPreco() + "): ");
+            double preco = inputDouble("DIGITE UM PREÇO VALIDO");
+
+            System.out.print("DIGITE O ESTOQUE DO ITEM: (" + item.getEstoque() + "): ");
+            double estoque = inputDouble("DIGITE UM VALOR VALIDO");
+
+            System.out.print("DIGITE A MEDIDA DO ITEM: (" + item.getMedida() + "): ");
+            String medida = inputString("DIGITE UMA MEDIDA VALIDA");
+
+            sistema.modificarItem(item.getID(), descricao, preco, estoque, medida);
+
+            printLinha("ITEM CADASTRADO COM SUCESSO");
+        }
+    }
+
+    private static void listarItens() {
+        printLinha("LISTAR ITENS");
+
+        ArrayList<Item> itens = sistema.recuperarTodosOsItens();
+
+        for (Item item : itens) {
+            System.out.println("ID: " + item.getID());
+            System.out.println("DESCRIÇÃO DO ITEM: " + item.getDescricao());
+
+            System.out.println("PREÇO DO ITEM:: " + item.getPreco());
+
+            System.out.println("ESTOQUE DO ITEM:: " + item.getEstoque());
+
+            System.out.println("MEDIDA DO ITEM:: " + item.getMedida());
+            System.out.println("");
+        }
+    }
+
+    public static void excluirItem() {
+
+        printLinha("EXCLUIR ITEM");
+        System.out.print("DIGITE A DESCRIÇÃO DO ITEM: ");
+        String nome = inputString("DIGITE UMA DESCRIÇÃO VALIDA");
+
+        if (sistema.excluirItem(nome) == true) {
+            printLinha("ITEM EXCLUIDO");
+        } else {
+            printLinha("ITEM NAO CADASTRADO");
+        }
+
+    }
     /////////////////////////////////////// GERENCIAR VENDEDORES
     /////////////////////////////////////// ///////////////////////////////////////
 
@@ -255,7 +344,6 @@ public class Main {
 
         System.out.print("DIGITE A SENHA DO GERENTE: ");
         String senha = inputString("DIGITE UMA SENHA VALIDA");
-
 
         if (sistema.excluirGerente(nome, senha) == true) {
             printLinha("GERENTE EXCLUIDO");
