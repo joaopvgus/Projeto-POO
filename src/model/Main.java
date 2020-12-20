@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -108,7 +109,7 @@ public class Main {
 
             } else if (opcao.equals("3")) {
 
-                // listarItens();
+                listarItens();
 
             } else if (opcao.equals("4")) {
 
@@ -239,21 +240,39 @@ public class Main {
             System.out.print("ITEM NÃO ENCONTRADO");
         } else {
 
-            System.out.print("DIGITE A DESCRIÇÃO DO ITEM( " + item.getDescricao() + "): ");
+            System.out.print("DIGITE A DESCRIÇÃO DO ITEM: (" + item.getDescricao() + "): ");
             String descricao = inputString("DIGITE UMA DESCRIÇÃO VALIDA");
 
-            System.out.print("DIGITE O PREÇO DO ITEM: ");
+            System.out.print("DIGITE O PREÇO DO ITEM: (" + item.getPreco() + "): ");
             double preco = inputDouble("DIGITE UM PREÇO VALIDO");
 
-            System.out.print("DIGITE O ESTOQUE DO ITEM: ");
+            System.out.print("DIGITE O ESTOQUE DO ITEM: (" + item.getEstoque() + "): ");
             double estoque = inputDouble("DIGITE UM VALOR VALIDO");
 
-            System.out.print("DIGITE A MEDIDA DO ITEM: ");
+            System.out.print("DIGITE A MEDIDA DO ITEM: (" + item.getMedida() + "): ");
             String medida = inputString("DIGITE UMA MEDIDA VALIDA");
 
             sistema.modificarItem(item.getID(), descricao, preco, estoque, medida);
 
             printLinha("ITEM CADASTRADO COM SUCESSO");
+        }
+    }
+
+    private static void listarItens() {
+        printLinha("LISTAR ITENS");
+
+        ArrayList<Item> itens = sistema.recuperarTodosOsItens();
+
+        for (Item item : itens) {
+            System.out.println("ID: " + item.getID());
+            System.out.println("DESCRIÇÃO DO ITEM: " + item.getDescricao());
+
+            System.out.println("PREÇO DO ITEM:: " + item.getPreco());
+
+            System.out.println("ESTOQUE DO ITEM:: " + item.getEstoque());
+
+            System.out.println("MEDIDA DO ITEM:: " + item.getMedida());
+            System.out.println("");
         }
     }
 

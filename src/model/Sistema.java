@@ -60,6 +60,10 @@ public class Sistema {
 
     }
 
+    public ArrayList<Item> recuperarTodosOsItens() {
+        return itens.recuperarTodosOsItens();
+    }
+
     public Item buscarItem(String nome) {
         Item item = itens.recuperarItem(nome);
         return item;
