@@ -104,8 +104,7 @@ public class Main {
                 criarItem();
 
             } else if (opcao.equals("2")) {
-
-                // modificarItem();
+                modificarItem();
 
             } else if (opcao.equals("3")) {
 
@@ -220,6 +219,42 @@ public class Main {
         sistema.criarItem(descricao, preco, estoque, medida);
 
         printLinha("ITEM CADASTRADO COM SUCESSO");
+    }
+
+    public static Item buscarItem() {
+
+        System.out.print("DIGITE O NOME DO ITEM QUE DESEJA MODIFICAR: ");
+        String nome = inputString("DIGITE UM NOME VALIDO");
+
+        Item item = sistema.buscarItem(nome);
+
+        return item;
+    }
+
+    public static void modificarItem() {
+        printLinha("MODIFICAR ITEM");
+
+        Item item = buscarItem();
+        if (item == null) {
+            System.out.print("ITEM NÃO ENCONTRADO");
+        } else {
+
+            System.out.print("DIGITE A DESCRIÇÃO DO ITEM( " + item.getDescricao() + "): ");
+            String descricao = inputString("DIGITE UMA DESCRIÇÃO VALIDA");
+
+            System.out.print("DIGITE O PREÇO DO ITEM: ");
+            double preco = inputDouble("DIGITE UM PREÇO VALIDO");
+
+            System.out.print("DIGITE O ESTOQUE DO ITEM: ");
+            double estoque = inputDouble("DIGITE UM VALOR VALIDO");
+
+            System.out.print("DIGITE A MEDIDA DO ITEM: ");
+            String medida = inputString("DIGITE UMA MEDIDA VALIDA");
+
+            sistema.modificarItem(item.getID(), descricao, preco, estoque, medida);
+
+            printLinha("ITEM CADASTRADO COM SUCESSO");
+        }
     }
 
     /////////////////////////////////////// GERENCIAR VENDEDORES
