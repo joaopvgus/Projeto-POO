@@ -15,4 +15,6 @@ public interface IRepositorioItem {
     void atualiazarItem(int id, String descricao, double preco, double estoque, String medida);
 
     boolean excluirItem(String nome);
+
+    void decrementarItem(String nome);
 }

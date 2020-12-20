@@ -10,6 +10,8 @@ public interface IRepositorioVendedor {
 
     boolean excluirVendedor(String nome);
 
+    boolean verificaVendedor(String nome);
+
     ArrayList<Vendedor> recuperarTodosOsVendedores();
 
 }

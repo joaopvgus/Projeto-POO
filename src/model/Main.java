@@ -8,8 +8,7 @@ public class Main {
 
     private static Sistema sistema = new Sistema();
 
-    //////////////////////////////// METODOS BASICOS DE ENTRADA E SAIDA
-    //////////////////////////////// ////////////////////////////////
+    ////////////////////////////////   METODOS BASICOS DE ENTRADA E SAIDA   ////////////////////////////////
 
     public static void printLinha(String titulo) {
         System.out.println("");
@@ -22,8 +21,9 @@ public class Main {
         printLinha("MENU");
         System.out.println("1 - EFETUAR VENDA");
         System.out.println("2 - GERENCIAR ITENS");
-        System.out.println("3 - GERENCIAR VENDEDORES");
-        System.out.println("4 - GERENCIAR GERENTES");
+        System.out.println("3 - EXIBIR VENDAS");
+        System.out.println("4 - GERENCIAR VENDEDORES");
+        System.out.println("5 - GERENCIAR GERENTES");
         System.out.println("0 - ENCERRAR PROGRAMA");
         System.out.println("");
         System.out.print("DIGITE O NUMERO REFERENTE A SUA OPCAO: ");
@@ -73,12 +73,35 @@ public class Main {
 
     }
 
-    //////////////////////// METODOS DIRETAMENTE RELACIONADOS AO MENU PRINCIPAL
-    //////////////////////// ////////////////////////
+    ////////////////////////   METODOS DIRETAMENTE RELACIONADOS AO MENU PRINCIPAL   ////////////////////////
 
     public static void efetuarVenda() {
 
         printLinha("EFETUAR VENDA");
+        Vendedor vendedor = setVendedor();
+
+        if (vendedor != null) {
+            ArrayList<Grupo> grupos = setGrupos(new ArrayList<Grupo>());
+            double totalGrupos = sistema.getTotalGrupos(grupos);
+            double credito = 0;
+            double debito = 0;
+
+            double aVista = setAVista(totalGrupos);
+
+            if (aVista < totalGrupos) {
+                totalGrupos -= aVista;
+                credito = setCredito(totalGrupos);
+                totalGrupos -= credito;
+                if (totalGrupos != 0) {
+                    debito = totalGrupos;
+                    System.out.println("VALOR DE " + totalGrupos + " ATRIBUIDO AO DEBITO");
+                }
+            }
+
+            sistema.criarVenda(vendedor, grupos, aVista, credito, debito);
+
+            printLinha("VENDA EFETUADA COM SUCESSO");
+        }
 
     }
 
@@ -123,6 +146,29 @@ public class Main {
             }
 
         } while (!opcao.equals("0"));
+
+    }
+
+    public static void exibirVendas() {
+
+        printLinha("VENDAS");
+
+        if (sistema.getVendas().isEmpty()) {
+            printLinha("NENHUMA VENDA FOI REALIZADA");
+        }
+
+        for (Venda venda : sistema.getVendas()) {
+            System.out.println(venda.getVendedor().getNome());
+            for (String grupo : venda.getGruposArrayListStrings()) {
+                System.out.println(grupo);
+            }
+
+            System.out.println("");
+            System.out.println("A VISTA: R$ " + venda.getaVista());
+            System.out.println("CREDITO: R$ " + venda.getCredito());
+            System.out.println("DEBITO: R$ " + venda.getDebito());
+
+        }
 
     }
 
@@ -196,11 +242,95 @@ public class Main {
 
     }
 
-    /////////////////////////////////////////// EFETUAR VENDA
-    /////////////////////////////////////////// ///////////////////////////////////////////
+    ///////////////////////////////////////////   EFETUAR VENDA   ///////////////////////////////////////////
 
-    ////////////////////////////////////////// GERENCIAR ITENS
-    ////////////////////////////////////////// //////////////////////////////////////////
+    public static Vendedor setVendedor() {
+
+        System.out.print("DIGITE O NOME DO VENDEDOR: ");
+        String nome = inputString("DIGITE UM NOME VALIDO");
+
+        if (sistema.verificaVendedor(nome) == true) {
+            System.out.println("VENDEDOR VINCULADO");
+            return new Vendedor(nome);
+        } else {
+            System.out.println("VENDEDOR NAO CADASTRADO");
+            return null;
+        }
+
+    }
+
+    public static ArrayList<Grupo> setGrupos(ArrayList<Grupo> grupos) {
+
+        System.out.print("DIGITE O NOME DO ITEM: ");
+        String nome = inputString("DIGITE UM NOME VALIDO");
+
+        if (sistema.buscarItem(nome) != null) {
+
+            System.out.print("DIGITE A QUANTIDADE: ");
+            double quantidade = inputDouble("DIGITE UMA QUANTIDADE VALIDA");
+
+            if (sistema.buscarItem(nome).getEstoque() >= quantidade) {
+
+                Grupo grupo = new Grupo(sistema.buscarItem(nome), quantidade);
+                grupos.add(grupo);
+                sistema.decrementarItem(nome);
+                System.out.print("DESEJA INSERIR OUTRO ITEM? (S/N): ");
+                String opcao = inputString("DIGITE \"S\" OU \"N\"");
+
+                if (opcao.equals("S") || opcao.equals("s")) {
+                    return setGrupos(grupos);
+                } else {
+                    return grupos;
+                }
+            } else {
+
+                System.out.println("A QUANTIDADE INSERIDA E SUPERIOR AO ESTOQUE");
+                return setGrupos(grupos);
+
+            }
+        } else {
+            System.out.println("ITEM NAO CADASTRADO");
+            return setGrupos(grupos);
+        }
+
+    }
+
+    public static double setAVista(double restante) {
+
+        System.out.println("");
+        System.out.print("VALOR RESTANTE: R$");
+        System.out.println(restante);
+        System.out.print("DIGITE O VALOR PAGO A VISTA: ");
+        double valor = inputDouble("DIGITE UM VALOR VALIDO");
+
+        if (valor > restante) {
+            System.out.print("TROCO: R$");
+            System.out.println(valor - restante);
+            return valor;
+        } else {
+            return valor;
+        }
+
+    }
+
+    public static double setCredito(double restante) {
+
+        System.out.println("");
+        System.out.print("VALOR RESTANTE: R$");
+        System.out.println(restante);
+        System.out.print("DIGITE O VALOR PAGO NO CREDITO: ");
+        double valor = inputDouble("DIGITE UM VALOR VALIDO");
+
+        if (valor > restante) {
+            System.out.println("VALOR SUPERIOR AO RESTANTE");
+            return setCredito(restante);
+        } else {
+            return valor;
+        }
+
+    }
+
+    //////////////////////////////////////////   GERENCIAR ITENS   //////////////////////////////////////////
 
     private static void criarItem() {
         printLinha("CRIAR ITEM");
@@ -261,6 +391,10 @@ public class Main {
     private static void listarItens() {
         printLinha("LISTAR ITENS");
 
+        if (sistema.recuperarTodosOsItens().isEmpty()) {
+            printLinha("NENHUM ITEM FOI CADASTRADO");
+        }
+
         ArrayList<Item> itens = sistema.recuperarTodosOsItens();
 
         for (Item item : itens) {
@@ -289,8 +423,8 @@ public class Main {
         }
 
     }
-    /////////////////////////////////////// GERENCIAR VENDEDORES
-    /////////////////////////////////////// ///////////////////////////////////////
+    
+    ///////////////////////////////////////   GERENCIAR VENDEDORES   ///////////////////////////////////////
 
     public static void criarVendedor() {
 
@@ -318,8 +452,7 @@ public class Main {
 
     }
 
-    //////////////////////////////////////// GERENCIAR GERENTES
-    //////////////////////////////////////// ////////////////////////////////////////
+    ////////////////////////////////////////   GERENCIAR GERENTES   ////////////////////////////////////////
 
     public static void criarGerente() {
 
@@ -353,8 +486,7 @@ public class Main {
 
     }
 
-    /////////////////////////////////////////////// MAIN
-    /////////////////////////////////////////////// ///////////////////////////////////////////////
+    ///////////////////////////////////////////////   MAIN   ///////////////////////////////////////////////
 
     public static void main(String[] args) {
 
@@ -370,15 +502,21 @@ public class Main {
 
             if (opcao.equals("1")) {
 
+                efetuarVenda();
+
             } else if (opcao.equals("2")) {
 
                 gerenciarItens();
 
             } else if (opcao.equals("3")) {
 
-                gerenciarVendedores();
+                exibirVendas();
 
             } else if (opcao.equals("4")) {
+
+                gerenciarVendedores();
+
+            } else if (opcao.equals("5")) {
 
                 gerenciarGerentes();
 

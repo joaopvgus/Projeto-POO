@@ -60,4 +60,17 @@ public class RepositorioItem implements IRepositorioItem {
 
         return false;
     }
+
+    @Override
+    public void decrementarItem(String nome) {
+        
+        for (Item item : itens){
+
+            if (item.getDescricao().equals(nome)){
+                itens.remove(item);
+            }
+
+        }
+
+    }
 }

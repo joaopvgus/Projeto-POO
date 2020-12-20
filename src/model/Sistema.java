@@ -52,6 +52,16 @@ public class Sistema {
 
     }
 
+    public boolean verificaVendedor(String nome){
+
+        if (vendedores.verificaVendedor(nome) == true){
+            return true;
+        }
+
+        return false;
+
+    }
+
     public void criarItem(String descricao, double preco, double estoque, String medida) {
 
         Item item = new Item(id, descricao, preco, estoque, medida);
@@ -81,11 +91,32 @@ public class Sistema {
 
     }
 
+    public void decrementarItem(String nome){
+
+        itens.decrementarItem(nome);
+
+    }
+
+    public double getTotalGrupos(ArrayList<Grupo> grupos){
+
+        double total = 0;
+        for (Grupo grupo : grupos){
+            total += grupo.getTotal();
+        }
+
+        return total;
+
+    }
+
     public void criarVenda(Vendedor vendedor, ArrayList<Grupo> grupos, double aVista, double credito, double debito) {
 
         Venda venda = new Venda(vendedor, grupos, aVista, credito, debito);
         vendas.adicionarVenda(venda);
 
+    }
+
+    public ArrayList<Venda> getVendas(){
+        return vendas.recuperarTodasAsVendas();
     }
 
 }

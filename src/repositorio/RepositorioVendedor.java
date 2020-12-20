@@ -33,6 +33,19 @@ public class RepositorioVendedor implements IRepositorioVendedor {
     }
 
     @Override
+    public boolean verificaVendedor(String nome){
+
+        for (Vendedor vendedor : vendedores){
+            if (vendedor.getNome().equals(nome)){
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+    @Override
     public ArrayList<Vendedor> recuperarTodosOsVendedores() {
         
         return vendedores;
