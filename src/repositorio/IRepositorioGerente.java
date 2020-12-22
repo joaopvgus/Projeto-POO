@@ -11,4 +11,7 @@ public interface IRepositorioGerente {
     ArrayList<Gerente> recuperarTodosOsGerentes();
     
     boolean excluirGerente(String nome, String senha);
+
+    boolean verificaGerente(String nome, String senha);
+    
 }

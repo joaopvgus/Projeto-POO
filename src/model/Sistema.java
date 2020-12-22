@@ -37,6 +37,14 @@ public class Sistema {
 
     }
 
+    public boolean verificaGerente(String nome, String senha){
+
+        boolean status = gerentes.verificaGerente(nome, senha);
+
+        return status;
+
+    }
+
     public void criarVendedor(String nome) {
 
         Vendedor vendedor = new Vendedor(nome);

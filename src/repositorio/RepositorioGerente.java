@@ -36,4 +36,21 @@ public class RepositorioGerente implements IRepositorioGerente {
 
         return false;
     }
+
+    @Override
+    public boolean verificaGerente(String nome, String senha) {
+
+        for (Gerente gerente : gerentes){
+
+            if (gerente.getNome().equals(nome) && gerente.getSenha().equals(senha)){
+
+                    return true;
+
+            }
+
+        }
+
+        return false;
+
+    }
 }

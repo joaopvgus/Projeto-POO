@@ -73,6 +73,24 @@ public class Main {
 
     }
 
+    public static boolean login(){
+
+        System.out.print("DIGITE O NOME DE USUARIO: ");
+        String nome = inputString("DIGITE UM NOME VALIDO");
+        System.out.print("DIGITE SUA SENHA: ");
+        String senha = inputString("DIGITE UMA SENHA VALIDA");
+
+        if (sistema.verificaGerente(nome, senha) == true){
+
+            return true;
+
+        }
+
+        System.out.println("CREDENCIAIS INVALIDAS");
+        return false;
+
+    }
+
     ////////////////////////   METODOS DIRETAMENTE RELACIONADOS AO MENU PRINCIPAL   ////////////////////////
 
     public static void efetuarVenda() {
@@ -493,6 +511,12 @@ public class Main {
         sistema.criarGerente("admin", "admin");
 
         String opcao = "";
+
+        boolean auth = login();
+
+        while (auth == false){
+            auth = login();
+        }
 
         do {
 
