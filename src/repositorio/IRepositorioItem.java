@@ -16,5 +16,5 @@ public interface IRepositorioItem {
 
     boolean excluirItem(String nome);
 
-    void decrementarItem(String nome);
+    void decrementarItem(String nome, double quant);
 }

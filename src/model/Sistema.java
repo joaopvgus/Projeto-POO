@@ -99,9 +99,9 @@ public class Sistema {
 
     }
 
-    public void decrementarItem(String nome){
+    public void decrementarItem(String nome, double quant){
 
-        itens.decrementarItem(nome);
+        itens.decrementarItem(nome, quant);
 
     }
 

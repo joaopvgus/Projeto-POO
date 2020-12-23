@@ -46,10 +46,10 @@ public class RepositorioItem implements IRepositorioItem {
 
     @Override
     public boolean excluirItem(String nome) {
-        
+
         for (Item item : itens) {
-            
-            if (item.getDescricao().equals(nome)){
+
+            if (item.getDescricao().equals(nome)) {
 
                 itens.remove(item);
                 return true;
@@ -62,15 +62,13 @@ public class RepositorioItem implements IRepositorioItem {
     }
 
     @Override
-    public void decrementarItem(String nome) {
-        
-        for (Item item : itens){
+    public void decrementarItem(String nome, double quant) {
+        for (Item item : itens) {
+            if (item.getDescricao().equals(nome)) {
 
-            if (item.getDescricao().equals(nome)){
-                itens.remove(item);
+                item.setEstoque(item.getEstoque() - quant);
             }
-
         }
-
     }
+    
 }

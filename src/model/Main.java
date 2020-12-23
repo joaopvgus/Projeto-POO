@@ -8,7 +8,8 @@ public class Main {
 
     private static Sistema sistema = new Sistema();
 
-    ////////////////////////////////   METODOS BASICOS DE ENTRADA E SAIDA   ////////////////////////////////
+    //////////////////////////////// METODOS BASICOS DE ENTRADA E SAIDA
+    //////////////////////////////// ////////////////////////////////
 
     public static void printLinha(String titulo) {
         System.out.println("");
@@ -73,14 +74,14 @@ public class Main {
 
     }
 
-    public static boolean login(){
+    public static boolean login() {
 
         System.out.print("DIGITE O NOME DE USUARIO: ");
         String nome = inputString("DIGITE UM NOME VALIDO");
         System.out.print("DIGITE SUA SENHA: ");
         String senha = inputString("DIGITE UMA SENHA VALIDA");
 
-        if (sistema.verificaGerente(nome, senha) == true){
+        if (sistema.verificaGerente(nome, senha) == true) {
 
             return true;
 
@@ -91,7 +92,8 @@ public class Main {
 
     }
 
-    ////////////////////////   METODOS DIRETAMENTE RELACIONADOS AO MENU PRINCIPAL   ////////////////////////
+    //////////////////////// METODOS DIRETAMENTE RELACIONADOS AO MENU PRINCIPAL
+    //////////////////////// ////////////////////////
 
     public static void efetuarVenda() {
 
@@ -114,6 +116,10 @@ public class Main {
                     debito = totalGrupos;
                     System.out.println("VALOR DE " + totalGrupos + " ATRIBUIDO AO DEBITO");
                 }
+            }
+
+            for (Grupo grupo : grupos) {
+                sistema.decrementarItem(grupo.getItem().getDescricao(), grupo.getQuantidade());
             }
 
             sistema.criarVenda(vendedor, grupos, aVista, credito, debito);
@@ -260,7 +266,8 @@ public class Main {
 
     }
 
-    ///////////////////////////////////////////   EFETUAR VENDA   ///////////////////////////////////////////
+    /////////////////////////////////////////// EFETUAR VENDA
+    /////////////////////////////////////////// ///////////////////////////////////////////
 
     public static Vendedor setVendedor() {
 
@@ -291,7 +298,6 @@ public class Main {
 
                 Grupo grupo = new Grupo(sistema.buscarItem(nome), quantidade);
                 grupos.add(grupo);
-                sistema.decrementarItem(nome);
                 System.out.print("DESEJA INSERIR OUTRO ITEM? (S/N): ");
                 String opcao = inputString("DIGITE \"S\" OU \"N\"");
 
@@ -348,7 +354,8 @@ public class Main {
 
     }
 
-    //////////////////////////////////////////   GERENCIAR ITENS   //////////////////////////////////////////
+    ////////////////////////////////////////// GERENCIAR ITENS
+    ////////////////////////////////////////// //////////////////////////////////////////
 
     private static void criarItem() {
         printLinha("CRIAR ITEM");
@@ -441,8 +448,9 @@ public class Main {
         }
 
     }
-    
-    ///////////////////////////////////////   GERENCIAR VENDEDORES   ///////////////////////////////////////
+
+    /////////////////////////////////////// GERENCIAR VENDEDORES
+    /////////////////////////////////////// ///////////////////////////////////////
 
     public static void criarVendedor() {
 
@@ -470,7 +478,8 @@ public class Main {
 
     }
 
-    ////////////////////////////////////////   GERENCIAR GERENTES   ////////////////////////////////////////
+    //////////////////////////////////////// GERENCIAR GERENTES
+    //////////////////////////////////////// ////////////////////////////////////////
 
     public static void criarGerente() {
 
@@ -504,7 +513,8 @@ public class Main {
 
     }
 
-    ///////////////////////////////////////////////   MAIN   ///////////////////////////////////////////////
+    /////////////////////////////////////////////// MAIN
+    /////////////////////////////////////////////// ///////////////////////////////////////////////
 
     public static void main(String[] args) {
 
@@ -514,7 +524,7 @@ public class Main {
 
         boolean auth = login();
 
-        while (auth == false){
+        while (auth == false) {
             auth = login();
         }
 
